@@ -1,0 +1,43 @@
+
+<div class="row justify-content-center">
+    <div class="col-10">
+
+        <%= render 'shared/errors', obj: @user %>
+
+        <%= form_with(model: @user, class: "shadow p-3 mb-3 rounded", id: "form_temp", local: true, data: { turbo: false } ) do |f| %>
+            
+            <div class="form-group row">
+                <%= f.label :username, class: "col-2 col-form-label" %>
+                <div class="col-sm-10">
+                    <%= f.text_field :username, class: "form-control", placeholder: "Enter your Username" %>
+                </div>
+            </div>
+            <br/>
+            <div class="form-group row">
+                <%= f.label :email, class: "col-2 col-form-label" %>
+                <div class="col-sm-10">
+                    <%= f.email_field :email, class: "form-control", placeholder: "Enter your Email" %>
+                </div>
+            </div>
+            <br/>
+            <% if @user.new_record? %>
+                <div class="form-group row">
+                    <%= f.label :password, class: "col-2 col-form-label" %>
+                    <div class="col-sm-10">
+                        <%= f.password_field :password, class: "form-control", placeholder: "Enter a Password" %>
+                    </div>
+                </div>
+            <% else %>
+                <div class="text-center">
+                    <%= link_to "Reset Password", password_reset_path, class: "btn btn-outline-primary" %>
+                </div>
+            <% end %>
+            <br/>
+            <p class="text-center">OR</p>
+            <div class="text-center">
+                <%= f.submit (@user.new_record? ? 'Sign up' : 'Update Account'), class: "btn btn-outline-success" %>
+            </div>
+        <% end %>
+    </div>
+    <%= link_to '[ Cancel and return to ads listing ]', products_path, class: "text-primary text-center" %>
+</div>

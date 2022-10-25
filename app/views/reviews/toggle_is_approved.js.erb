@@ -1,0 +1,6 @@
+
+<% if @review.is_approved == true %>
+    $("#<%= dom_id(@review) %> > a").html('true').removeClass('btn-warning').addClass('btn-success')
+<% else %>
+    $("#<%= dom_id(@review) %> > a").html('false').removeClass('btn-success').addClass('btn-warning')
+<% end %>

@@ -1,0 +1,24 @@
+<div class="container" id="home-container">
+    <div class="jumbotron text-center">
+        <h1 class="display-4">Welcome to MyMarket !!!</h1>
+        <p class="lead">This is your all in one stop destination to buy and sell anything your heart desire.</p>
+        <p>Look no further! Buy or Sell anything at the most fair and reasionable price. Sign up now and explore your one stop destination to buy or sell anything</p>
+        <% if logged_in? %>
+        <p class="lead">
+            <%= link_to 'Home', products_path, class: 'btn btn-success btn-lg' %>
+        </p>
+        <p class="lead">
+            <%= link_to 'Logout!', logout_path, class: 'btn btn-success btn-md', method: :delete %>
+        </p>
+        <% else %>
+            <p class="lead">
+                <%= link_to 'Sign up!', signup_path, class: 'btn btn-success btn-lg' %>
+            </p>
+            <p>Already have an account?</p>
+            <p class="lead">
+                <%= link_to 'Login!', login_path, class: 'btn btn-success btn-md' %>
+            </p>
+
+        <% end %>
+    </div>
+</div>

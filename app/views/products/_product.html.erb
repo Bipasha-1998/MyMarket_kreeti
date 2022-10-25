@@ -1,0 +1,28 @@
+    <div class="product-container">
+        <% @products.each do |product| %>
+                <div class="col product-item">
+                    <div class="card h-100">
+                        <%= image_tag product.pictures.first, class: "img-thumbnail card-image-top", style: "width: 200; height: 200px" %>
+                        <div class="card-body">
+                            <h5 class="card-title"><%= link_to product.title, product_path(product), class: "text-success" %></h5>
+                            <p class="card-text">Rs. <%= product.price %></p> 
+                            <p class="card-text"><%= truncate(product.description, length: 100) %></p>
+                            <p class="card-text"><%= link_to product.category.name, product.category %></p> 
+                            <% if product.responsed_user_ids.include?(current_user.id) %>
+                                <p class="card-text text-danger">You Have responded</p>
+                            <% end %>
+                            <p><%= link_to "View", product_path(product), class: "btn btn-outline-success" %>
+                            <% if (logged_in? && product.user == current_user) || is_admin? %>
+                                <%= link_to "Edit", edit_product_path(product), class: "btn btn-outline-info" %>
+                                <%= link_to "Delete", product_path(product), class: "btn btn-outline-danger", method: :delete, data: {confirm: "Are you sure?"} %></p>
+                                <p><%= link_to 'Responded Users', responded_path(product), class: "btn btn-warning" %></p>
+                            <% end %>
+                        </div>
+                        <div class="card-footer text-muted">
+                            <small>Created <%= time_ago_in_words(product.created_at) %> ago, 
+                            edited <%= time_ago_in_words(product.updated_at) %> ago</small>
+                        </div>
+                    </div>
+                </div>
+        <% end %>
+    </div>

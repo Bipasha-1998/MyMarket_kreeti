@@ -1,0 +1,35 @@
+    
+<div class="container">
+    <h2 class="text-center">Reviews waiting to be approved</h2>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+            <th scope="col">product_id</th>
+            <th scope="col">Reviewer</th>
+            <th scope="col">Review</th>
+            <th scope="col">Admin approval</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% @products.each do |product| %>
+                <tr>
+                <% product.reviews.each do |r| %>
+                    <td><%= r.product_id %></td>
+                    <td><%= r.reviewer %></td>
+                    <td><%= r.review_body %></td>
+                    <% if r.is_approved ==false %>
+                    <td id="<%= dom_id(r) %>"><%= link_to 'Approve',
+                     toggle_is_approved_review_path(product_id: r.product_id, id: r.id), remote: true, method: :patch,
+                     class: "btn btn-#{ r.is_approved ? 'warning' : 'success'}",
+                     data: { confirm: "Are you sure you want to approve this Review ?" } %> | 
+                     <%= link_to "Reject", product_review_path(product_id: r.product_id, id: r.id), class: "btn btn-outline-danger", method: :delete, data: {confirm: "Are you sure you want to reject this review? This will delete the review"} %></td>
+                    <% else %>
+                     <td>Approved by Admin [<%= current_user.username %>]</td>
+                    <% end %>
+                </tr>
+                <% end %>
+            <% end %>
+        </tbody>
+    </table>
+</div>

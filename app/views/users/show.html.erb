@@ -1,0 +1,27 @@
+<div class="container">
+    <div class="text-center">
+        <h1><%= @user.username %>'s profile</h1>
+
+        <h3>Ads Created</h3>
+        <br/>
+        <div>
+            <% if logged_in? && @user == current_user %>
+                <%= link_to 'Edit profile', edit_user_path(@user), class:"btn btn-outline-primary", style: "width: 100%;" %>
+            <% end %>
+        </div>
+        <br/>
+        <div>
+            <%= link_to 'Start Conversation', conversations_path, class:"btn btn-outline-success", style: "width: 100%;" %>
+        </div>
+        <br/>
+        <div>
+            <%= link_to 'Add Product', new_product_path, class: "btn btn-outline-primary", style: "width:100%;" %>
+        </div>
+    </div>
+    <br/>
+    <%= render 'products/product' %>
+
+    <div class="text-center">
+        <%= link_to '[ Cancel and return to ads listing ]', products_path, class: "text-primary" %>
+    </div>
+</div>

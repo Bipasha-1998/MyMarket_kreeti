@@ -1,0 +1,64 @@
+<%= render 'shared/errors', obj: @product %>
+
+
+<div class="row justify-content-center">
+    <div class="col-10">
+        <%= form_with(model: @product,  class: "shadow p-3 mb-3 rounded", id: "form_temp", local: true, data: { turbo: false } ) do |f| %>
+            <div class="form-group row">
+                <%= f.label :title, class: "col-2 col-form-label" %>
+                <div class="col-sm-10">
+                    <%= f.text_field :title, class: "form-control", placeholder: "Title" %>
+                </div>
+            </div>
+            <br/>
+            <div class="form-group row">
+                <%= f.label :description, class: "col-2 col-form-label" %>
+                <div class="col-sm-10">
+                    <%= f.text_area :description, class: "form-control", placeholder: "Description of the product" %>
+                </div>
+            </div>
+            <br/>
+            <div class="form-group row">
+                <%= f.label :price, class: "col-2 col-form-label" %>
+                <div class="col-sm-10">
+                   <%= f.text_field :price, class: "form-control", placeholder: "Enter price of the product" %>
+                </div>
+            </div>
+            <br/>
+
+            <div class="form-group row">
+                <%= f.label :category, class: "col-2 col-form-label" %>
+                <div class="col-sm-10">
+                    <%= f.select :category_id, options_for_select(@categories.collect { |cat| [cat.name, cat.id]})%>
+                </div>
+            </div>
+            <br/>
+            <div class="form-group row">
+                <%= f.label :city, class: "col-2 col-form-label" %>
+                <div class="col-sm-10">
+                    <%= f.text_field :city, class: "form-control", placeholder: "Enter the name of City" %>
+                </div>
+            </div>
+            <br/>
+            <div class="form-group row">
+                <%= f.label :phone_number, class: "col-2 col-form-label" %>
+                <div class="col-sm-10">
+                    <%= f.text_field :phone_number, class: "form-control", placeholder: "Enter your Phone number" %>
+                </div>
+            </div>
+            <br/>
+            <div class="form-group row">
+            <%= f.label :pictures, class: "col-2 col-form-label" %>
+            <div class="col-sm-10">
+                <%= f.file_field :pictures, class: "form-control", multiple: true %>
+                <p class="text-secondary">First picture will be displayed as the thumbnail in the all products page</p>
+            </div>
+            </div>
+            <br/>
+            <div class="text-center">
+                <%= f.submit (@product.new_record? ? "Create Ad" : "Update Ad"), class: "btn btn-outline-success" %>
+            </div>
+        <% end %>
+    </div>
+    <%= link_to '[ Cancel and return to products listing ]', products_path, class: "text-primary text-center" %>
+</div>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Hello, <%= @seller.username %></h1>
+    <p>
+      You have recieved a buy request from <%= @user.username %>,
+      with email: <%= @user.email %>.<br>
+    </p>
+    <p>
+      To see the list of responded users, just follow this link: <%= @url %>.
+    </p>
+    <p>Thanks and have a great day!</p>
+  </body>
+</html>

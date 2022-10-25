@@ -1,0 +1,46 @@
+<div id="page-content">
+    <h1 class="text-center mt-4">Admin Dashboard</h1>
+</div>
+
+<div class="admin-container">
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    <div class="col">
+      <div class="card h-100">
+        <div class="card-body">
+          <h5 class="card-title text-center">Users</h5>
+          <p class="card-text text-center"><%= link_to 'All Users', users_path, class: "btn btn-primary admin-func-btns" %></p>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card h-100">
+        <div class="card-body">
+          <h5 class="card-title text-center">Categories</h5>
+          <p class="card-text text-center"><%= link_to 'Add Category', new_category_path, class: "btn btn-primary admin-func-btns" %></p>
+          <p class="card-text text-center"><%= link_to 'All Categories', categories_path, class: "btn btn-primary admin-func-btns" %></p>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card h-100">
+        <div class="card-body">
+          <h5 class="card-title text-center">Reviews</h5>
+          <p class="card-text text-center"><%= link_to 'All Reviews', reviews_path, class: "btn btn-primary admin-func-btns" %></p>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card h-100">
+        <div class="card-body">
+          <h5 class="card-title text-center">Products</h5>
+          <p class="card-text text-center"><%= link_to 'All Products', products_path, class: "btn btn-primary admin-func-btns" %></p>
+          <p class="card-text text-center"><%= link_to 'Add Product', new_product_path, class: "btn btn-primary admin-func-btns" %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br/>
+  <div class="text-center">
+    <%= link_to '[ Cancel and return to products listing ]', products_path, class: "text-primary" %>
+  </div>
+</div>

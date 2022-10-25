@@ -1,0 +1,79 @@
+<header> 
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <%= link_to 'My Market', root_path, class: 'navbar-brand', id: 'logo' %>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+          <%= link_to 'Sell', new_product_path, class: 'nav-link' %>
+          </li>
+
+          <li class="nav-item">
+            <%= link_to 'Buy', products_path, class: 'nav-link' %>
+          </li>
+
+          <li class="nav-item">
+            <%= link_to 'Categories', categories_path, class: 'nav-link' %>
+          </li>
+
+          <% if logged_in? %>
+            <li class="nav-item">
+            <%= link_to 'Logout', logout_path, class: 'nav-link', method: :delete %>
+            </li>
+          <% else %>
+            <li class="nav-item">
+            <%= link_to 'Sign up', signup_path, class: 'nav-link' %>
+            </li>
+            <li class="nav-item">
+            <%= link_to 'Login', login_path, class: 'nav-link' %>
+            </li>
+          <% end %>
+        </ul>
+
+          <% if logged_in? %>
+              <div class="nav-item dropdown nav-account">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <% if is_admin? %>
+                    (Admin)
+                  <% end %>
+                  <%= current_user.username %>'s Account
+                </a>
+                <ul class="dropdown-menu">
+                  <% if is_admin? %>
+                    <li><%=link_to "Dashboard", admin_path,class:"dropdown-item" %></li>
+                  <% end %>
+                  <li><%=link_to "View Profile", user_path(current_user),class:"dropdown-item" %></li>
+                  <li><%=link_to "Edit Profile", edit_user_path(current_user),class:"dropdown-item" %></li>
+                  <li><%= link_to "Change Password", password_reset_path, class: "dropdown-item" %></li>
+                </ul>
+            </div>
+        <% end %>
+      </div>
+
+    </div>
+  </nav>
+  <div class="bg-secondary">
+    <%= form_tag(products_path, method: :get) do %>
+      <div class="form-row search-form">
+        <div class="col search-form-items">
+          <label class="text-light">Title</label>
+          <%= text_field_tag "title" %>
+        </div>
+        <div class="col search-form-items">
+          <label class="text-light">Category</label>
+          <%= select_tag("category", options_from_collection_for_select(Category.all, "id", "name", params[:category_id]), include_blank: true) %>
+        </div>
+        <div class="col search-form-items">
+          <label class="text-light">City</label>
+          <%= text_field_tag "city" %>
+        </div>
+          
+        <%= submit_tag "Search", class: "btn btn-success search-form-button" %>
+      </div>
+    <% end %>
+  </div>
+
+</header>

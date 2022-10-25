@@ -1,0 +1,149 @@
+@import 'bootstrap/dist/css/bootstrap';
+
+body{
+  margin-bottom: 70px;
+}
+
+  .nav-link {
+    color: white !important;
+  }
+
+  .nav-account{
+    margin-right: 2rem;
+  }
+  
+  #logo {
+    float: left;
+    font-size: 1.7em;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+    font-weight: bold;
+  }
+  
+  #home-container {
+    margin-top: 25px;
+  }
+
+  #page-content{
+    margin-bottom: 10px;
+  }
+  
+  .jumbotron {
+    background-image: asset-url('jumbo_home_image.jpg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 500px;
+  }
+
+  .search-form{
+    display: flex;
+    align-items: center;
+    height: 60px;
+  }
+
+  .search-form-items{
+    margin-left: 10px;
+  }
+
+  .search-form-button{
+    margin-right: 10px;
+    border: 1px solid rgb(32, 32, 32);
+  }
+
+  .custom-select{
+    height: 38px;
+    background-color: white;
+    border-radius: 5px;
+  }
+
+  .admin-container{
+    margin: 20px;
+  }
+
+  .footer-link{
+    text-decoration: none;
+  }
+
+  .product-container{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .product-item{
+    width: 33%;
+  }
+  #myCarousel{
+    overflow: hidden;
+    height: 30rem;
+    width: 45%;
+  }
+  .carousel-item {
+    height: 30rem;
+    background: black;
+    color: white;
+    position: relative;
+    background-position: center;
+    background-size: cover;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+  }
+  
+  .carousel-item img{
+    height: 30rem;
+    position: absolute;
+    background-position: center;
+    background-size: cover;
+    opacity: 0.75;
+  }
+  
+  .carousel-control-prev, .carousel-control-next{
+    opacity: 100;
+  }
+
+  .product-show-info{
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .product-title{
+    font-size: 2rem;
+  }
+
+  .product-desc{
+    font-size: 20px;
+  }
+
+  .message-container{
+    margin: 1rem;
+    border: 1px solid grey;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: rgb(187, 187, 181);
+}
+
+.message-form{
+  width: 89%;
+  border-radius: 5px;
+  height: 3rem;
+}
+
+.message-box{
+  display: flex;
+  gap: 5px
+}
+
+.convo-container{
+  border: 1px solid grey;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: rgb(187, 187, 181); 
+}
+
+.admin-func-btns{
+  width: 100%;
+}

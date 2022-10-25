@@ -1,0 +1,79 @@
+<div class="container">
+
+    <h1 class="text-center">Showing a specific product</h1>
+    <div class="product-show-info">
+            <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+            
+                <% @product.pictures.each do |picture| %>
+                    <div class="carousel-item  active carousel-slide"">
+                    <%= image_tag picture, class: "img-thumbnail d-block w-100" %>
+                    </div>
+                <% end %>
+
+                <a href="#myCarousel" class="carousel-control-prev" role="button" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </a>
+                <a href="#myCarousel" class="carousel-control-next" role="button" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </a>
+            </div>
+        <div class="product-info">
+            <div class="product-details">
+                <p class="product-title"><%= @product.title %></p>
+                <h4>Rs. <%= @product.price %></h4>
+                Description:
+                    <p class="text-secondary product-desc"><%= @product.description %></p>
+                Ad posted by: 
+                    <p class="text-secondary product-desc"><%= @product.user.username %></p>
+                      <p><%= link_to 'Start conversation', conversations_path, class: "btn btn-outline-success" %></p>
+                Category: <p class="text-secondary product-desc"><%= @product.category.name %></p>
+
+                <p>[<% if logged_in? && @product.user == current_user %>
+                    <%= link_to 'Edit this ad', edit_product_path %>
+                    | <%= link_to 'Delete',product_path(@product),
+                    method: :delete,
+                    data: { confirm: "Are you sure you want to delete this Product?" }   %> |
+                <% end %> <%= link_to 'Return to products list', products_path %>]</p>
+
+                <div id="<%= dom_id(@product) %>">
+                <% if @product.responsed_user_ids.include?(current_user.id) %>
+                    <p>You Have responded</p>
+                <% elsif @product.user == current_user %>
+                    <%= link_to 'Responded Users', responded_path, class: "btn btn-success" %>
+                <% else %>
+                    <%= link_to 'Buy Now!!!', buy_product_path(product_id: @product.id, user_id: current_user.id), method: :patch %>
+                <% end %>
+                </div>
+            </div>
+           
+        </div>
+    </div>
+
+    <br/>
+
+    <div class="product-review">
+
+    <div class="product-review-show">
+        <% @reviews.each do |review| %>
+            <% if review.is_approved == true %>
+
+                <h2>Reviews</h2>
+                    <p>
+                    <strong>Reviewer:</strong>
+                    <%= review.reviewer %>
+                    </p>
+                                
+                    <p>
+                    <strong>Review:</strong>
+                    <%= review.review_body %>
+                    </p>
+                    <hr>
+            <% end %>
+        <% end %>
+    </div>
+        <h2>Add Reviews</h2>
+        <%= render 'reviews/form' %>
+    </div>
+</div>

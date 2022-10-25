@@ -1,0 +1,28 @@
+<div id="page-content">
+  <h1 class="text-center mt-4">Reset your password?</h1>
+  <div class="row justify-content-center">
+    <div class="col-10">
+      <%= render 'shared/errors', obj: @user %>
+      <%= form_with(model: @user, url: password_reset_edit_path(token: params[:token]), class: "shadow p-3 mb-3 rounded", id: "form_temp", local: true, data: { turbo: false } ) do |f| %>
+        <div class="form-group row">
+          <%= f.label :password, class: "col-2 col-form-label" %>
+          <div class="col-sm-10">
+            <%= f.password_field :password, class: "form-control", placeholder: "Enter a Password" %>
+          </div>
+        </div>
+        <br/>
+        <div class="form-group row">
+          <%= f.label :password_confirmation, class: "col-2 col-form-label" %>
+          <div class="col-sm-10">
+            <%= f.password_field :password_confirmation, class: "form-control", placeholder: "Enter a Password" %>
+          </div>
+        </div>
+        <br/>
+        <div class="text-center">
+          <%= f.submit 'Reset Password', class: "btn btn-outline-success" %>
+        </div>
+      <% end %>
+    </div>
+    <%= link_to '[ Cancel and return to ads listing ]', products_path, class: "text-primary text-center" %>
+  </div>
+</div>
