@@ -5,8 +5,9 @@
         <h3>Ads Created</h3>
         <br/>
         <div>
-            <% if logged_in? && @user == current_user %>
+            <% if (logged_in? && @user == current_user) || admin? %>
                 <%= link_to 'Edit profile', edit_user_path(@user), class:"btn btn-outline-primary", style: "width: 100%;" %>
+                <%= link_to 'Delete profile', user_path(@user), class:"btn btn-outline-danger", style: "width: 100%;" %>
             <% end %>
         </div>
         <br/>
@@ -15,7 +16,9 @@
         </div>
         <br/>
         <div>
-            <%= link_to 'Add Product', new_product_path, class: "btn btn-outline-primary", style: "width:100%;" %>
+            <% if current_user == @user %>
+                <%= link_to 'Add Product', new_product_path, class: "btn btn-outline-primary", style: "width:100%;" %>
+            <% end %>
         </div>
     </div>
     <br/>

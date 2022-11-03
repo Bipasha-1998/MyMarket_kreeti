@@ -31,9 +31,9 @@
                 <div class="text-center">
                     <%= link_to "Reset Password", password_reset_path, class: "btn btn-outline-primary" %>
                 </div>
+                <br/>
+                <p class="text-center">OR</p>
             <% end %>
-            <br/>
-            <p class="text-center">OR</p>
             <div class="text-center">
                 <%= f.submit (@user.new_record? ? 'Sign up' : 'Update Account'), class: "btn btn-outline-success" %>
             </div>

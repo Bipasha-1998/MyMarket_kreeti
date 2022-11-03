@@ -1,5 +1,9 @@
-<div class="container">
+<% if !logged_in? %>
+    <p class="text-center bg-warning">You must be logged in to <strong>Buy</strong> any product or <strong>Add any Reviews</strong>.
+    Click here to <%= link_to 'Login now', login_path, class: "btn btn-outline-dark" %></p>
+<% end %>
 
+<div class="container">
     <h1 class="text-center">Showing a specific product</h1>
     <div class="product-show-info">
             <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
@@ -27,8 +31,7 @@
                     <p class="text-secondary product-desc"><%= @product.description %></p>
                 Ad posted by: 
                     <p class="text-secondary product-desc"><%= @product.user.username %></p>
-                      <p><%= link_to 'Start conversation', conversations_path, class: "btn btn-outline-success" %></p>
-                Category: <p class="text-secondary product-desc"><%= @product.category.name %></p>
+                Category: <p class="product-desc"><%= link_to @product.category.name, @product.category, class: "text-secondary", style: "text-decoration: none" %></p>
 
                 <p>[<% if logged_in? && @product.user == current_user %>
                     <%= link_to 'Edit this ad', edit_product_path %>
@@ -38,12 +41,12 @@
                 <% end %> <%= link_to 'Return to products list', products_path %>]</p>
 
                 <div id="<%= dom_id(@product) %>">
-                <% if @product.responsed_user_ids.include?(current_user.id) %>
+                <% if @product.responsed_user_ids.include?(current_user) %>
                     <p>You Have responded</p>
                 <% elsif @product.user == current_user %>
                     <%= link_to 'Responded Users', responded_path, class: "btn btn-success" %>
                 <% else %>
-                    <%= link_to 'Buy Now!!!', buy_product_path(product_id: @product.id, user_id: current_user.id), method: :patch %>
+                    <%= link_to 'Buy Now!!!', buy_product_path(product_id: @product.id, user_id: current_user), method: :patch, class: "btn btn-success" %>
                 <% end %>
                 </div>
             </div>

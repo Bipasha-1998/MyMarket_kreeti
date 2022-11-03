@@ -15,7 +15,7 @@
                 <tr>
                     <td><%= category.name %></td>
                     <td><%= link_to 'Show', category_path(category) %></td>
-                    <% if is_admin? %>
+                    <% if admin? %>
                         <td><%= link_to 'Edit', edit_category_path(category) %></td>
                         <td><%= link_to 'Delete', category_path(category),
                             method: :delete,
@@ -30,7 +30,7 @@
 <br/>
 
 <div class="text-center">
-        <% if is_admin? %>
+        <% if admin? %>
             <%= link_to 'Add Category', new_category_path, class: "btn btn-outline-success" %>
         <% end %>
 </div>
