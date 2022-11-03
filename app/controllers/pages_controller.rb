@@ -1,8 +1,9 @@
 class PagesController < ApplicationController
-  skip_before_action :require_user
-
   def home
-    redirect_to '/admin' if logged_in? && admin?
+    if (logged_in? && is_admin?)
+      redirect_to '/admin'
+    end
     @categories = Category.all
   end
+
 end

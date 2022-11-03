@@ -20,10 +20,7 @@
           </li>
 
           <% if logged_in? %>
-          <li class="nav-item">
-            <%= link_to 'Conversations', conversations_path, class: 'nav-link' %>
-          </li>  
-          <li class="nav-item">
+            <li class="nav-item">
             <%= link_to 'Logout', logout_path, class: 'nav-link', method: :delete %>
             </li>
           <% else %>
@@ -39,18 +36,17 @@
           <% if logged_in? %>
               <div class="nav-item dropdown nav-account">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <% if admin? %>
+                  <% if is_admin? %>
                     (Admin)
                   <% end %>
                   <%= current_user.username %>'s Account
                 </a>
                 <ul class="dropdown-menu">
-                  <% if admin? %>
+                  <% if is_admin? %>
                     <li><%=link_to "Dashboard", admin_path,class:"dropdown-item" %></li>
                   <% end %>
                   <li><%=link_to "View Profile", user_path(current_user),class:"dropdown-item" %></li>
                   <li><%=link_to "Edit Profile", edit_user_path(current_user),class:"dropdown-item" %></li>
-                  <li><%=link_to "All Users", users_path,class:"dropdown-item" %></li>
                   <li><%= link_to "Change Password", password_reset_path, class: "dropdown-item" %></li>
                 </ul>
             </div>
@@ -79,4 +75,5 @@
       </div>
     <% end %>
   </div>
+
 </header>

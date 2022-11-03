@@ -1,6 +1,6 @@
 <h1> New Message </h1>
-<% if @sender == @curr_user %>
-  <p>Hello @<%= @receiver.username%> , you've received a new message from @<%= @sender.username %> .</p>
-<% else %>
-  <p>Hello @<%= @sender.username%> , you've received a new message from @<%= @receiver.username %> .</p>
-<% end %>
+
+<p>Hello @<%= @receiver.username%> , you've received the following new message from @<%= @sender.username %> .</p>
+
+
+<p> <%= message.body %></p>

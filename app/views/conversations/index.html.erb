@@ -13,7 +13,6 @@
                     <% receiver = User.find(conversation.sender_id) %>
                 <% end %>
                 <%= link_to receiver.username, conversation_messages_path(conversation), style: "font-size: 20px; text-decoration: none;" %>
-                <br/>
             <% end %>
         <% end %>
         <hr>
@@ -23,8 +22,5 @@
                 <p><%= link_to user.username, conversations_path(sender_id: current_user.id, receiver_id: user.id), method: "post", style: "font-size: 20px; text-decoration: none;" %></p>
             <% end %>
         <% end %>
-    </div>
-    <div class="text-center">
-        <%= link_to '[ Cancel and return to Home ]', products_path, class: "text-primary" %>
     </div>
 </div>

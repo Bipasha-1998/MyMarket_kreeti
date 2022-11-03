@@ -1,6 +1,6 @@
 New Message
-<% if @sender == @curr_user %>
-  Hello @<%= @receiver.username%> , you've received a new message from @<%= @sender.username %> .
-<% else %>
-  Hello @<%= @sender.username%> , you've received a new message from @<%= @receiver.username %> .
-<% end %>
+
+Hello @<%= @receiver.username%> , you've received the following new message from @<%= @sender.username %> .
+
+
+<%= message.body %>

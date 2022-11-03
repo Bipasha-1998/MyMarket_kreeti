@@ -5,5 +5,5 @@ Rails.application.config.middleware.use OmniAuth::Builder do
     prompt: 'select account'
   }
 end
-OmniAuth.config.allowed_request_methods = %i[get post]
+OmniAuth.config.allowed_request_methods = %i[get, post]
 OmniAuth.config.full_host = Rails.env.production? ? 'http://mymarketbipasha.com:3000' : 'http://localhost:3000'
