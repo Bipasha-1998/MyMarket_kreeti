@@ -1,9 +1,11 @@
 class Product < ApplicationRecord
+  include Filterable
   belongs_to :user
   belongs_to :category
 
-  has_many :reviews, dependent: :destroy
+  paginates_per 3
 
+  has_many :reviews, dependent: :destroy
   has_many_attached :pictures, dependent: :destroy
 
   validates :title, presence: true, length: { minimum: 6, maximum: 100 }
@@ -11,7 +13,7 @@ class Product < ApplicationRecord
   validates :price, presence: true, numericality: true
   validates :city, presence: true
   validates :phone_number, presence: true, numericality: true
-
+  
   scope :filter_by_title, ->(title) { where('lower(title) LIKE ?', "%#{title}%") }
   scope :filter_by_category, ->(category_id) { where category_id: category_id }
   scope :filter_by_city, ->(city) { where('lower(city) LIKE ?', "%#{city}%") }

@@ -34,10 +34,11 @@
                 <br/>
                 <p class="text-center">OR</p>
             <% end %>
+            <br/>
             <div class="text-center">
                 <%= f.submit (@user.new_record? ? 'Sign up' : 'Update Account'), class: "btn btn-outline-success" %>
             </div>
         <% end %>
     </div>
-    <%= link_to '[ Cancel and return to ads listing ]', products_path, class: "text-primary text-center" %>
+    <%= link_to '[ Cancel and return to ads listing ]', admin_approved_products_path, class: "text-primary text-center" %>
 </div>

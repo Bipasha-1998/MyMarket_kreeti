@@ -18,5 +18,6 @@ module MyMarket
       'Access-Control-Allow-Method' => 'GET, POST, OPTIONS, PUT, DELETE',
       'Access-Control-Allow-Headers:' => 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
     }
+    config.active_job.queue_adapter = :delayed_job
   end
 end

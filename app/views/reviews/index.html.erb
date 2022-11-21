@@ -1,10 +1,11 @@
     
 <div class="container">
     <h2 class="text-center">Reviews waiting to be approved</h2>
-
+    <%= paginate @reviews %>
     <table class="table table-bordered">
         <thead>
             <tr>
+            <th scope="col">review_id</th>
             <th scope="col">product_id</th>
             <th scope="col">Reviewer</th>
             <th scope="col">Review</th>
@@ -12,9 +13,9 @@
             </tr>
         </thead>
         <tbody>
-            <% @products.each do |product| %>
                 <tr>
-                <% product.reviews.each do |r| %>
+                <% @reviews.each do |r| %>
+                    <td><%= r.id %></td>
                     <td><%= r.product_id %></td>
                     <td><%= r.reviewer %></td>
                     <td><%= r.review_body %></td>
@@ -25,11 +26,11 @@
                      data: { confirm: "Are you sure you want to approve this Review ?" } %> | 
                      <%= link_to "Reject", product_review_path(product_id: r.product_id, id: r.id), class: "btn btn-outline-danger", method: :delete, data: {confirm: "Are you sure you want to reject this review? This will delete the review"} %></td>
                     <% else %>
-                     <td>Approved by Admin [<%= current_user.username %>]</td>
+                       <td>Approved by <%= r.approved_by %>(Admin)</td>
                     <% end %>
                 </tr>
                 <% end %>
-            <% end %>
         </tbody>
     </table>
+    <%= paginate @reviews %>
 </div>

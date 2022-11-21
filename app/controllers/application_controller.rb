@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   def require_admin
     unless admin?
       flash[:alert] = 'You are not authorized to perform this action'
-      redirect_to products_path
+      redirect_to admin_approved_products_path
     end
   end
 end

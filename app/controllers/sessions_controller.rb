@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
       if logged_in? && admin?
         redirect_to '/admin' 
       else
-        redirect_to products_path
+        redirect_to admin_approved_products_path
       end
     else
       flash.now[:alert] = 'Invalid email or password. Try again'
@@ -33,7 +33,7 @@ class SessionsController < ApplicationController
     end
     if @user.valid?
       session[:user_id] = @user.id
-      redirect_to products_path, notice: 'Logged in successfully'
+      redirect_to admin_approved_products_path, notice: 'Logged in successfully'
     else
       redirect_to '/login', alert: 'Something went wrong. Please try again'
     end

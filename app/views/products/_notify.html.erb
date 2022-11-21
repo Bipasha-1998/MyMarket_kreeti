@@ -1,0 +1,4 @@
+<% if !logged_in? %>
+    <p class="text-center bg-warning">You must be logged in to <strong>Buy</strong> any product or <strong>Add any Reviews</strong>.
+    Click here to <%= link_to 'Login now', login_path, class: "btn btn-outline-dark" %></p>
+<% end %>

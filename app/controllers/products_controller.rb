@@ -1,14 +1,13 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: %i[show edit update destroy buy responded]
-  skip_before_action :require_user, only: %i[show index]
   before_action :require_same_user_or_admin, only: %i[edit update destroy responded]
   before_action :set_categories
+  before_action :require_admin, only: %i[index toggle_is_approved]
+  skip_before_action :require_user, only: %i[show admin_approved_products]
 
   def index
-    @products = Product.all
-    @products = @products.filter_by_city(params[:city].downcase) if params[:city].present?
-    @products = @products.filter_by_title(params[:title].downcase) if params[:title].present?
-    @products = @products.filter_by_category(params[:category]) if params[:category].present?
+    # Only admin has the access to see all created ads in order to approve or reject the posted ad
+    @products = Product.page(params[:page]).per(5)
   end
 
   def show
@@ -25,8 +24,8 @@ class ProductsController < ApplicationController
     @product = Product.new(product_params)
     @product.user = current_user
     if @product.save
-      flash[:notice] = 'Ad created successfilly'
-      redirect_to @product
+      flash[:notice] = 'Ad created successfully.Waiting for Admin approval'
+      redirect_to admin_approved_products_path
     else
       render 'new'
     end
@@ -43,12 +42,25 @@ class ProductsController < ApplicationController
 
   def destroy
     @product.destroy
-    redirect_to products_path
+    redirect_to admin_approved_products_path
+  end
+
+  def toggle_is_approved
+    @product = Product.find(params[:id])
+    admin = current_user.username
+    @product.update!(is_approved: true, approved_by: admin)
+    redirect_to admin_approved_products_path, notice: 'The Product is successfully approved'
+  end
+
+  def admin_approved_products
+    # Once admin has approved the posted ad, the product will be visible to regular user
+    @products = Product.page(params[:page])
   end
 
   def buy
+    # This action handles the situation after the user clicks 'Buy now' button
     @user = User.find(params[:user_id])
-    ProductResponseMailer.with(user: @user).response(@product).deliver_now
+    ProductResponseMailer.with(user: @user).delay.response(@product)
     @product.responsed_user_ids.push(@user.id)
     if @product.save
       redirect_to product_path(@product), notice: 'You have successfully responded. Seller will contact you soon'
@@ -58,8 +70,19 @@ class ProductsController < ApplicationController
   end
 
   def responded
+    # This action handles the situation where the seller can see the list of interested buyers
     @product.responsed_user_ids.each do |u|
       @user = User.find(u)
+    end
+  end
+
+  def searched_products
+    # This action handles the filter feature where results get rendered in different view named same as this action
+    @products = Product.filter(params.slice(:title, :category, :city)).page(params[:page])
+    if @products.count.zero?
+      redirect_to admin_approved_products_path, alert: 'No results found matching your search'
+    else
+      flash.now[:notice] = "#{@products.count} results found matching your search"
     end
   end
 

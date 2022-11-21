@@ -1,4 +1,6 @@
 class PasswordResetsController < ApplicationController
+  skip_before_action :require_user
+
   def new; end
 
   def edit
@@ -10,8 +12,12 @@ class PasswordResetsController < ApplicationController
 
   def create
     @user = User.find_by(email: params[:email])
-    PasswordMailer.with(user: @user).reset.deliver_now if @user.present?
-    redirect_to products_path, notice: 'Please check your mail to reset your password'
+    if @user.present?
+      PasswordMailer.with(user: @user).reset.deliver_now
+      redirect_to admin_approved_products_path, notice: 'Please check your mail to reset your password'
+    else
+      redirect_to login_path, alert: 'User does not exist. Please login'
+    end
   end
 
   def update

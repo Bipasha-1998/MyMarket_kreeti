@@ -10,6 +10,7 @@
             </tr>
         </thead>
         <tbody>
+            <%= paginate @products %>
             <% @category.products.each do |p| %>
                 <tr>
                     <td><%= p.title %></td>
@@ -17,6 +18,7 @@
                     <td><%= link_to "View Product", product_path(p) %></td>
                 </tr>
             <% end %>
+            <%= paginate @products %>
         </tbody>
     </table>
 </div>

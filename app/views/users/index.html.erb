@@ -3,7 +3,7 @@
     <div id="page-content">
         <h1 class="text-center mt-4">Users List</h1>
     </div>
-
+    <%= paginate @users %>
     <table class="table table-bordered table-striped">
         <thead>
             <tr>
@@ -32,7 +32,7 @@
             <% end %>
         </tbody>
     </table>
-
+    <%= paginate @users %>
     <div class="text-center">
         [<%= link_to 'Create new ad',new_product_path %> | <%= link_to 'Home', root_path %>]
     </div>

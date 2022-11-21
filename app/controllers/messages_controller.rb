@@ -4,25 +4,22 @@ class MessagesController < ApplicationController
   end
 
   def index
-    @messages = @conversation.messages
-    @message = @conversation.messages.new
-  end
-
-  def new
-    @message = @conversation.messages.new
+    @messages = set_new_msg
+    @message = set_new_msg.new
   end
 
   def create
-    @message = @conversation.messages.new(message_params)
-    if @message.save
-      SendMessageMailer.new_message(@message).deliver_now
-      redirect_to conversation_messages_path(@conversation)
-    end
+    @message = set_new_msg.new(message_params)
+    redirect_to conversation_messages_path(@conversation) if @message.save
   end
 
   private
 
   def message_params
     params.require(:message).permit(:body, :user_id, :sender_id, :receiver_id)
+  end
+
+  def set_new_msg
+    @conversation.messages
   end
 end

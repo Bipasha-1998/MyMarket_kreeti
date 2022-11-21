@@ -8,8 +8,12 @@
 
 # *** User creation ***
 User.destroy_all
-User.create!([{ username: 'Admin',
-                email: 'admin@example.com',
+User.create!([{ username: 'Admin1',
+                email: 'admin1@example.com',
+                password: 'password',
+                admin: true },
+              { username: 'Admin2',
+                email: 'admin2@example.com',
                 password: 'password',
                 admin: true },
               { username: 'ExampleUser1',
@@ -45,7 +49,9 @@ products[0] = Product.new(title: 'Brown Sofa',
                           user_id: 2,
                           category_id: 1,
                           city: 'Kolkata',
-                          phone_number: '1234567891')
+                          phone_number: '1234567891',
+                          is_approved: true,
+                          approved_by: 'Admin1')
 products[0].pictures.attach([{ io: File.open('./app/assets/images/products/brown-sofa/brown-sofa1.jpg'),
                                filename: 'brown-sofa1.jpg',
                                content_type: 'image/jpeg' },
@@ -63,7 +69,9 @@ products[1] = Product.new(title: 'Harry Potter Book Series',
                           user_id: 3,
                           category_id: 2,
                           city: 'Siliguri',
-                          phone_number: '1234567892')
+                          phone_number: '1234567892',
+                          is_approved: true,
+                          approved_by: 'Admin2')
 products[1].pictures.attach([{ io: File.open('./app/assets/images/products/hp-books/hp-book1.jpg'),
                                filename: 'hp-book1.jpg',
                                content_type: 'image/jpeg' },
@@ -81,7 +89,9 @@ products[2] = Product.new(title: 'Night Lamp',
                           user_id: 5,
                           category_id: 4,
                           city: 'Delhi',
-                          phone_number: '1234567893')
+                          phone_number: '1234567893',
+                          is_approved: true,
+                          approved_by: 'Admin1')
 products[2].pictures.attach([{ io: File.open('./app/assets/images/products/night-lamp/nightlamp1.jpg'),
                                filename: 'nightlamp1.jpg',
                                content_type: 'image/jpeg' },
@@ -102,7 +112,9 @@ products[3] = Product.new(title: 'Smart phone',
                           user_id: 4,
                           category_id: 5,
                           city: 'Kolkata',
-                          phone_number: '1234567894')
+                          phone_number: '1234567894',
+                          is_approved: true,
+                          approved_by: 'Admin2')
 products[3].pictures.attach([{ io: File.open('./app/assets/images/products/mobile/samsung1.jpg'),
                                filename: 'samsung1.jpg',
                                content_type: 'image/jpeg' },

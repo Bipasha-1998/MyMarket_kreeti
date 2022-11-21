@@ -1,0 +1,10 @@
+<%= render 'notify' %>
+<div class="container">
+    <div id="page-content">
+        <h1 class="text-center mt-4">Search Results</h1>
+    </div>
+ <%= paginate @products %>
+ <div>
+ <%= render 'product' %>
+ </div>
+</div>

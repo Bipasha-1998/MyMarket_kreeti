@@ -21,6 +21,8 @@ gem 'jbuilder', '~> 2.7'
 
 gem 'rexml', require: false
 
+gem 'kaminari'
+
 # Use Redis adapter to run Action Cable in production
 gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
@@ -67,3 +69,5 @@ gem 'rails-controller-testing'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 gem 'net-smtp', require: false
+
+gem 'delayed_job_active_record'

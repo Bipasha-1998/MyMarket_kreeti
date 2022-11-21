@@ -1,7 +1,7 @@
 class ConversationsController < ApplicationController
   def index
-    @users = User.all
-    @conversations = Conversation.all
+    @users = User.page(params[:page]).per(5)
+    @conversations = Conversation.page(params[:page]).per(5)
   end
 
   def create

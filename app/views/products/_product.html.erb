@@ -1,28 +1,36 @@
-    <div class="product-container">
-        <% @products.each do |product| %>
-                <div class="col product-item">
-                    <div class="card h-100">
-                        <%= image_tag product.pictures.first, class: "img-thumbnail card-image-top", style: "width: 200; height: 200px" %>
-                        <div class="card-body">
-                            <h5 class="card-title"><%= link_to product.title, product_path(product), class: "text-success" %></h5>
-                            <p class="card-text">Rs. <%= product.price %></p> 
-                            <p class="card-text"><%= truncate(product.description, length: 100) %></p>
-                            <p class="card-text"><%= link_to product.category.name, product.category %></p> 
-                            <% if product.responsed_user_ids.include?(current_user) %>
-                                <p class="card-text text-danger">You Have responded</p>
-                            <% end %>
-                            <p><%= link_to "View", product_path(product), class: "btn btn-outline-success" %>
-                            <% if (logged_in? && product.user == current_user) || admin? %>
-                                <%= link_to "Edit", edit_product_path(product), class: "btn btn-outline-info" %>
-                                <%= link_to "Delete", product_path(product), class: "btn btn-outline-danger", method: :delete, data: {confirm: "Are you sure?"} %></p>
-                                <p><%= link_to 'Responded Users', responded_path(product), class: "btn btn-warning" %></p>
-                            <% end %>
-                        </div>
-                        <div class="card-footer text-muted">
-                            <small>Created <%= time_ago_in_words(product.created_at) %> ago, 
-                            edited <%= time_ago_in_words(product.updated_at) %> ago</small>
-                        </div>
-                    </div>
-                </div>
-        <% end %>
+<% if @products.count == 0 %>
+    <h2 class="text-secondary text-center">No Products available... Create one now by clicking on
+      <%= link_to 'Create new Product',new_product_path %></h2>
+<% end %>
+<% @products.each do |p| %>
+  <% if p.is_approved == true %>
+    <div class="row justify-content-md-center">
+      <div class="col-8 mt-4">
+        <div class="card h-100 text-center shadow mb-5 bg-white rounded">
+          <div class="card-header font-italic">
+            Ad posted by <%= p.user.username %> 
+          </div>
+          <%= image_tag p.pictures.first, class: "img-thumbnail card-image-top", style: "height: 25rem" if p.pictures.present? %>
+          <div class="card-body">
+            <h5 class="card-title"><%= link_to p.title, product_path(p), class: "text-success" %></h5>
+            <p class="card-text">Rs. <%= p.price %></p> 
+            <p class="card-text"><%= link_to p.category.name, p.category %></p> 
+            <% if p.responsed_user_ids.include?(current_user) %>
+              <p class="card-text text-danger">You Have responded</p>
+            <% end %>
+            <%= link_to "View", product_path(p), class: "btn btn-outline-success" %>
+            <% if (logged_in? && p.user == current_user) || admin? %>
+              <%= link_to "Edit", edit_product_path(p), class: "btn btn-outline-info" %>
+              <%= link_to "Delete", product_path(p), class: "btn btn-outline-danger", method: :delete, data: {confirm: "Are you sure?"} %></p>
+              <%= link_to 'Responded Users', responded_path(p), class: "btn btn-warning" %>
+            <% end %>
+          </div>
+          <div class="card-footer text-muted">
+            <small>Created <%= time_ago_in_words(p.created_at) %> ago, 
+            edited <%= time_ago_in_words(p.updated_at) %> ago</small>
+          </div>
+        </div>
+      </div>
     </div>
+  <% end %>
+<% end %>

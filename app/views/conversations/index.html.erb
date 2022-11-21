@@ -5,6 +5,7 @@
 
     <div class="convo-container">
         <h3>All Conversations:</h3>
+        <%= paginate @conversations %>
         <% @conversations.each do |conversation| %>
             <% if conversation.sender_id == current_user.id || conversation.receiver_id == current_user.id %>
                 <% if conversation.sender_id == current_user.id %>
@@ -18,13 +19,15 @@
         <% end %>
         <hr>
         <h3>All Users:</h3>
+        <%= paginate @users %>
         <% @users.each do |user| %>
             <% if user.id != current_user.id %>
                 <p><%= link_to user.username, conversations_path(sender_id: current_user.id, receiver_id: user.id), method: "post", style: "font-size: 20px; text-decoration: none;" %></p>
             <% end %>
         <% end %>
+        <%= paginate @users %>
     </div>
     <div class="text-center">
-        <%= link_to '[ Cancel and return to Home ]', products_path, class: "text-primary" %>
+        <%= link_to '[ Cancel and return to Home ]', admin_approved_products_path, class: "text-primary" %>
     </div>
 </div>

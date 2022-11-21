@@ -1,15 +1,18 @@
 Rails.application.routes.draw do
   root 'pages#home'
-  get '/home', to: 'pages#home'
-  # Products and its reviews
+  # Product Routes
+  get 'admin_approved_products', to: 'products#admin_approved_products'
+  get 'products/:id/responded', to: 'products#responded', as: 'responded' #Product owner to see the list of interested buyers
+  get '/search_results', to: 'products#searched_products'
   resources :products do
     member do
-      patch :buy
+      patch :buy    # Ajax to handle the buy now button feature
+      patch :toggle_is_approved   # Admin to approve or reject the product ad created
     end
-    resources :reviews, only: %i[new create destroy]
+    # Reviews routes
+    resources :reviews, only: %i[create destroy]
   end
-  get 'products/:id/responded', to: 'products#responded', as: 'responded'
-  resources :reviews, only: [:index] do
+  resources :reviews, only: [:index] do   # Index page for only admin to approve or reject reviews
     member do
       patch :toggle_is_approved
     end

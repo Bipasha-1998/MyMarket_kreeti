@@ -1,8 +1,8 @@
 class ReviewsController < ApplicationController
-  before_action :require_admin, only: %i[destroy toggle_is_approved]
-  skip_before_action :require_user, only: %i[index]
+  before_action :require_admin, only: %i[index destroy toggle_is_approved]
+  
   def index
-    @products = Product.all  
+    @reviews = Review.page(params[:page]).per(5)
   end
 
   def new; end
@@ -23,7 +23,8 @@ class ReviewsController < ApplicationController
   def toggle_is_approved
     @product = Product.find(params[:product_id])
     @review = @product.reviews.find(params[:id])
-    @review.update(is_approved: true)
+    admin = current_user.username
+    @review.update(is_approved: true, approved_by: admin)
     redirect_to reviews_path, notice: 'The review is successfully approved'
   end
 

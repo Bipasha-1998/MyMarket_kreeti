@@ -34,6 +34,7 @@
         <div class="card-body">
           <h5 class="card-title text-center">Products</h5>
           <p class="card-text text-center"><%= link_to 'All Products', products_path, class: "btn btn-primary admin-func-btns" %></p>
+          <p class="card-text text-center"><%= link_to 'All Approved Products', admin_approved_products_path, class: "btn btn-primary admin-func-btns" %></p>
           <p class="card-text text-center"><%= link_to 'Add Product', new_product_path, class: "btn btn-primary admin-func-btns" %></p>
         </div>
       </div>
@@ -41,6 +42,6 @@
   </div>
   <br/>
   <div class="text-center">
-    <%= link_to '[ Cancel and return to products listing ]', products_path, class: "text-primary" %>
+    <%= link_to '[ Cancel and return to products listing ]', admin_approved_products_path, class: "text-primary" %>
   </div>
 </div>

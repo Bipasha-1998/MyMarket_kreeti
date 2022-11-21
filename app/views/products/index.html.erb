@@ -1,15 +1,37 @@
-<% if !logged_in? %>
-    <p class="text-center bg-warning">You must be logged in to <strong>Buy</strong> any product or <strong>Add any Reviews</strong>.
-    Click here to <%= link_to 'Login now', login_path, class: "btn btn-outline-dark" %></p>
-<% end %>
 
-<div class="container">
-    <div id="page-content">
-    <h1 class="text-center mt-4">All products</h1>
-    <%= render 'product' %>
-    </div>
-    
-    <div class="text-center">
-        [<%= link_to 'Create new ad',new_product_path %> | <%= link_to 'Home', root_path %>]
-    </div>
+    <div class="container">
+    <h2 class="text-center">Products waiting to be approved</h2>
+    <%= paginate @products %>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+            <th scope="col">product_id</th>
+            <th scope="col">Product Title</th>
+            <th scope="col">Price</th>
+            <th scope="col">Ad Posted By</th>
+            <th scope="col">Admin approval</th>
+            </tr>
+        </thead>
+      <tbody>
+        <% @products.each do |p| %>
+                <tr>
+                    <td><%= p.id %></td>
+                    <td><%= p.title %></td>
+                    <td><%= p.price %></td>
+                    <td><%= p.user.username %></td>
+                    <% if p.is_approved ==false %>
+                        <td id="<%= dom_id(p) %>"><%= link_to 'Approve',
+                        toggle_is_approved_product_path(id: p.id), remote: true, method: :patch,
+                        class: "btn btn-#{ p.is_approved ? 'warning' : 'success'}",
+                        data: { confirm: "Are you sure you want to approve this Product ?" } %> | 
+                        <%= link_to "Reject", product_path(id: p.id), class: "btn btn-outline-danger",
+                        method: :delete, data: { confirm: "Are you sure you want to reject this product?" } %></td>
+                    <% else %>
+                        <td>Approved by Admin (<%= p.approved_by %>)</td>
+                    <% end %>
+                </tr>
+            <% end %>
+      </tbody>
+    </table>
+    <%= paginate @products %>
 </div>

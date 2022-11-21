@@ -4,12 +4,12 @@ class CategoriesController < ApplicationController
   before_action :require_admin, except: %i[index show]
 
   def index
-    @categories = Category.all
+    @categories = Category.page(params[:page])
   end
 
   def show
     @category = Category.find(params[:id])
-    @products = @category.products.all
+    @products = @category.products.page(params[:page])
   end
 
   def new

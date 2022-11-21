@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   before_action :require_admin, only: %i[admin destroy]
 
   def index
-    @users = User.all
+    @users = User.page(params[:page])
   end
 
   def show
@@ -23,10 +23,9 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      WelcomeMailer.with(user: @user).welcome_email.deliver_now 
       session[:user_id] = @user.id
       flash[:notice] = "Welcome to My Market #{@user.username}, you signed up successfully"
-      redirect_to products_path
+      redirect_to admin_approved_products_path
     else
       render 'new'
     end
@@ -45,7 +44,7 @@ class UsersController < ApplicationController
     @user.destroy
     session[:user_id] = nil
     flash[:notice] = 'Account and all the associated ads are succesfully deleted'
-    redirect_to products_path
+    redirect_to admin_approved_products_path
   end
 
   def admin; end

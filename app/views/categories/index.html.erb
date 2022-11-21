@@ -2,7 +2,7 @@
     <div id="page-content">
         <h1 class="text-center mt-4">All Categories</h1>
     </div>
-
+    <%= paginate @categories %>
     <table class="table table-bordered table-striped">
         <thead>
             <tr>
@@ -28,6 +28,7 @@
     </table>
 </div>
 <br/>
+<%= paginate @categories %>
 
 <div class="text-center">
         <% if admin? %>
